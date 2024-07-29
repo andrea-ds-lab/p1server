@@ -23,7 +23,8 @@ defmodule P1serverWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api", P1serverWeb do
     pipe_through :api
-    get "/owned_nfts", NftsController, :index
+    get "/simple", NftsController, :index
+    get "/with_url_params/:address", WithUrlParamsController, :index
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

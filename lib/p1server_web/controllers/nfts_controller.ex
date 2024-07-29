@@ -11,26 +11,34 @@ defmodule P1serverWeb.NftsController do
       key: api_key
     }
 
-    base_path = "https://eth-mainnet.g.alchemy.com/v2/#{api_key}/getNFTsForOwner?owner=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&withMetadata=false&pageSize=100"
-    IO.inspect(base_path)
+    base_path = "https://polygon-mainnet.g.alchemy.com/v2/#{api_key}/getNFTsForOwner?owner=0xd0AEd413c92622E229C859AAd1f05d15552D820e&withMetadata=false&pageSize=100"
     data = Map.put(data, "path_api", base_path)
 
-    data = Map.put(data, "res", fetch_nfts(base_path))
+
+    data = Map.put(data, "response", fetch_nfts(base_path))
 
     # Respond with JSON
     json(conn, data)
   end
 
   def fetch_nfts(url) do
-
-
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        IO.puts("Success:")
-        IO.inspect(body)
-      _ -> :failed
-    end
+        case Jason.decode(body) do
+          {:ok, json} ->
+            IO.puts("Success:")
+            IO.inspect(json)
 
+          {:error, error} ->
+            IO.puts("Failed to decode JSON: #{error}")
+        end
+
+      {:ok, %HTTPoison.Response{status_code: status_code}} ->
+        IO.puts("Received unexpected status code: #{status_code}")
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        IO.puts("Failed to fetch data: #{reason}")
+    end
   end
 
 end
