@@ -32,6 +32,7 @@ defmodule P1server.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:pbkdf2_elixir, "~> 2.0"},
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},
@@ -60,7 +61,8 @@ defmodule P1server.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:httpoison, "~> 2.0"},
-      {:dotenv, "~> 3.1"}
+      {:dotenv, "~> 3.1"},
+      {:guardian, "~> 2.0"}
     ]
   end
 
