@@ -25,6 +25,12 @@ defmodule P1serverWeb.Router do
     pipe_through :api
     get "/simple", NftsController, :index
     get "/with_url_params/:address", WithUrlParamsController, :index
+
+    scope "/v2" do
+      get "/objects_list", ApiController, :index
+      get "/artworks", ApiController, :fetch_artworks
+    end
+
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
