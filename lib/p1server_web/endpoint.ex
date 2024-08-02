@@ -49,5 +49,9 @@ defmodule P1serverWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+
+  # Add CORS plug configuration here
+  plug CORSPlug, origin: "http://localhost:5173"  # Adjust this as needed
+
   plug P1serverWeb.Router
 end

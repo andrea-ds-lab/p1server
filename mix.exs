@@ -63,6 +63,7 @@ defmodule P1server.MixProject do
       {:httpoison, "~> 2.0"},
       {:dotenv, "~> 3.1"},
       {:guardian, "~> 2.0"},
+      {:cors_plug, "~> 3.0"},
     ]
   end
 
