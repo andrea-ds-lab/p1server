@@ -45,6 +45,25 @@ defmodule P1server.Accounts do
   end
 
   @doc """
+  Authenticates a user by email and password.
+
+  ## Examples
+
+      iex> authenticate_user("foo@example.com", "correct_password")
+      {:ok, %User{}}
+
+      iex> authenticate_user("foo@example.com", "invalid_password")
+      :error
+
+  """
+  def authenticate_user(email, password) when is_binary(email) and is_binary(password) do
+    case get_user_by_email_and_password(email, password) do
+      nil -> :error
+      user -> {:ok, user}
+    end
+  end
+
+  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.

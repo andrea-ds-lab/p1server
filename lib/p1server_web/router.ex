@@ -17,6 +17,11 @@ defmodule P1serverWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug Guardian.Plug.Pipeline, module: P1serverWeb.Auth.Guardian, error_handler: P1serverWeb.AuthErrorHandler
+  end
+
+
   scope "/", P1serverWeb do
     pipe_through :browser
 
@@ -32,6 +37,16 @@ defmodule P1serverWeb.Router do
     scope "/v2" do
       get "/objects_list", ApiController, :index
       get "/artworks", ApiController, :fetch_artworks
+    end
+
+
+    # Apply the custom pipeline for Autenticazione
+    scope "/" do
+
+      pipe_through :auth
+      post "/register", AuthController, :register
+      post "/login", AuthController, :login
+
     end
 
   end

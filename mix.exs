@@ -62,7 +62,7 @@ defmodule P1server.MixProject do
       {:bandit, "~> 1.5"},
       {:httpoison, "~> 2.0"},
       {:dotenv, "~> 3.1"},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
     ]
   end
 

@@ -6,11 +6,8 @@ defmodule P1serverWeb.Auth.Guardian do
     {:ok, "user:#{resource.id}"}
   end
 
-  def resource_from_claims(%{"sub" => "user:" <> id}) do
-    # Fetch the user from the database using the id
-    case P1server.Accounts.get_user(id) do
-      nil -> {:error, :resource_not_found}
-      user -> {:ok, user}
-    end
+  def resource_from_claims(claims) do
+    # Implement how to retrieve the user from the claims
+    {:ok, P1server.Accounts.get_user!(claims["sub"])}
   end
 end
